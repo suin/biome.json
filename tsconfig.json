@@ -1,0 +1,6 @@
+{
+  "extends": ["@tsconfig/bun", "@tsconfig/strictest"],
+  "compilerOptions": {
+    "rootDir": "scripts"
+  }
+}

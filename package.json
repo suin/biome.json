@@ -1,0 +1,42 @@
+{
+  "name": "@suin/biome.json",
+  "version": "0.0.0-beta.1",
+  "description": "Opinionated Biome configuration extending ultracite with additional rules",
+  "keywords": [
+    "biome",
+    "linter",
+    "formatter",
+    "config",
+    "ultracite"
+  ],
+  "homepage": "https://github.com/suin/biome.json#readme",
+  "bugs": {
+    "url": "https://github.com/suin/biome.json/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suin/biome.json.git"
+  },
+  "license": "MIT",
+  "author": "suin",
+  "type": "module",
+  "main": "dist/biome.json",
+  "files": [
+    "dist/biome.json"
+  ],
+  "scripts": {
+    "build": "bun run scripts/compile.ts",
+    "install": "bun run update-biome-types",
+    "test": "bun test",
+    "update-biome-types": "quicktype ./node_modules/@biomejs/biome/configuration_schema.json -s schema -o node_modules/@biomejs/biome/index.d.ts -t Biome --just-types --prefer-unions"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "*",
+    "@tsconfig/bun": "*",
+    "@tsconfig/strictest": "*",
+    "@types/bun": "*",
+    "deepmerge-ts": "^7.1.5",
+    "quicktype": "^23.2.6",
+    "ultracite": "^5.0.29"
+  }
+}
