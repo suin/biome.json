@@ -1,6 +1,6 @@
 # @suin/biome.json
 
-> An opinionated [Biome](https://biomejs.dev/) configuration that extends [Ultracite](https://github.com/Jamesbarford/ultracite) with warning-level rules for uninterrupted development flow
+> An opinionated [Biome](https://biomejs.dev/) configuration that extends [Ultracite](https://github.com/haydenbleasel/ultracite) with warning-level rules for uninterrupted development flow
 
 [![npm version](https://img.shields.io/npm/v/@suin/biome.json.svg)](https://www.npmjs.com/package/@suin/biome.json)
 [![npm downloads](https://img.shields.io/npm/dm/@suin/biome.json.svg)](https://www.npmjs.com/package/@suin/biome.json)
@@ -219,6 +219,11 @@ If you find a bug, please create an issue with:
 ## License
 
 MIT © [suin](https://github.com/suin)
+
+## License Acknowledgment
+
+This package builds upon [Ultracite](https://github.com/haydenbleasel/ultracite) (MIT License) 
+as its foundation, extending it.
 
 ---
 
