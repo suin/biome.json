@@ -6,6 +6,8 @@
 [![npm downloads](https://img.shields.io/npm/dm/@suin/biome.json.svg)](https://www.npmjs.com/package/@suin/biome.json)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/suin/biome.json/actions/workflows/ci.yml/badge.svg)](https://github.com/suin/biome.json/actions/workflows/ci.yml)
+[![Publish](https://github.com/suin/biome.json/actions/workflows/publish.yml/badge.svg)](https://github.com/suin/biome.json/actions/workflows/publish.yml)
 
 ## The Problem
 
