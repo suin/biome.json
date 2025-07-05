@@ -21,8 +21,13 @@
   "author": "suin",
   "type": "module",
   "main": "dist/biome.json",
+  "exports": {
+    ".": "./dist/biome.json",
+    "./tsconfig": "./tsconfig-base.json"
+  },
   "files": [
-    "dist/biome.json"
+    "dist/biome.json",
+    "tsconfig-base.json"
   ],
   "scripts": {
     "build": "bun run scripts/compile.ts",

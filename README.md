@@ -153,6 +153,24 @@ You can override any rules in your own `biome.json`:
 }
 ```
 
+### TypeScript Configuration Integration
+
+To avoid duplicate warnings between Biome and TypeScript compiler, you can extend the included TypeScript configuration:
+
+```json
+{
+  "extends": ["@suin/biome.json/tsconfig"],
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler"
+  }
+}
+```
+
+This disables TypeScript's `noUnusedLocals` and `noUnusedParameters` since Biome's `noUnusedVariables` rule handles unused variable detection.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
