@@ -9,6 +9,14 @@
     "rules": {
       "correctness": {
         "noUndeclaredVariables": "off"
+      },
+      "style": {
+        "useConsistentArrayType": {
+          "level": "warn",
+          "options": {
+            "syntax": "generic"
+          }
+        }
       }
     }
   }

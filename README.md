@@ -171,6 +171,10 @@ To avoid duplicate warnings between Biome and TypeScript compiler, you can exten
 
 This disables TypeScript's `noUnusedLocals` and `noUnusedParameters` since Biome's `noUnusedVariables` rule handles unused variable detection.
 
+## Opinionated Choices
+
+This configuration makes several opinionated choices to promote consistency and best practices. These opinions are documented in [OPINIONS.md](./OPINIONS.md):
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
