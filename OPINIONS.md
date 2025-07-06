@@ -8,6 +8,29 @@ All linting rules are set to "warn" level instead of "error" level.
 
 **Reasoning**: This allows continuous development flow without interruption. Developers can distinguish between actual compilation errors and style issues, addressing warnings during code review or dedicated cleanup phases while maintaining code quality guidance without blocking productivity.
 
+## Disable `useTopLevelRegex` for Safety
+
+The `useTopLevelRegex` rule is disabled by default.
+
+**Reasoning**: While `useTopLevelRegex` is intended as a performance optimization, it encourages a practice that can introduce subtle, hard-to-debug bugs due to the stateful nature of JavaScript's `RegExp` objects with global (`g`) or sticky (`y`) flags. These objects maintain an internal `lastIndex` property that can cause unexpected behavior when reused across an application—especially in asynchronous code or within shared libraries.
+
+**Safety over micro-optimization**: The safest default practice is to create a new `RegExp` instance for each use, guaranteeing a stateless object and eliminating potential bugs. Modern JavaScript engines (like V8) cache compiled regex bytecode, making new `RegExp` object creation extremely cheap. The decision to reuse a `RegExp` instance should be a conscious optimization made after profiling, not a default behavior.
+
+**Examples of problematic code**:
+```javascript
+// Problematic - shared global RegExp can cause bugs
+const GLOBAL_REGEX = /pattern/g;
+
+function processItems(items) {
+  return items.filter(item => GLOBAL_REGEX.test(item)); // lastIndex state affects results
+}
+
+// Safe - new RegExp instance each time
+function processItems(items) {
+  return items.filter(item => /pattern/g.test(item));
+}
+```
+
 ## Enforce `Array<T>` Syntax Over `T[]`
 
 The `useConsistentArrayType` rule is configured to enforce generic array syntax.

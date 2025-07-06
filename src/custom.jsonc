@@ -10,6 +10,9 @@
       "correctness": {
         "noUndeclaredVariables": "off"
       },
+      "performance": {
+        "useTopLevelRegex": "off"
+      },
       "style": {
         "useConsistentArrayType": {
           "level": "warn",
