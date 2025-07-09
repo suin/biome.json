@@ -6,7 +6,19 @@ This document explains the opinionated choices made in `@suin/biome.json`.
 
 All linting rules are set to "warn" level instead of "error" level.
 
-**Reasoning**: This allows continuous development flow without interruption. Developers can distinguish between actual compilation errors and style issues, addressing warnings during code review or dedicated cleanup phases while maintaining code quality guidance without blocking productivity.
+**Reasoning**: This solves two critical developer experience issues:
+
+1. **Visual distinction**: Compiler errors appear in red, while linter warnings appear in yellow/orange. This visual difference helps developers immediately distinguish between actual code problems that prevent compilation and style suggestions that improve code quality.
+
+2. **Uninterrupted development flow**: Warning-level rules allow continuous development without interruption. Developers can focus on getting their logic working first, then address style issues during code review or dedicated cleanup phases.
+
+**The confusion problem**: When both compiler errors and linter errors show as red in your IDE, it becomes difficult to prioritize what needs immediate attention. A missing semicolon (style issue) appears just as urgent as an undefined variable (actual bug). This creates cognitive overhead and slows down development.
+
+**The solution**: By using warning-level rules, developers can:
+- Immediately identify and fix actual compilation errors (red)
+- Address style improvements when convenient (yellow warnings)
+- Maintain code quality guidance without blocking productivity
+- Reduce mental fatigue from constant error-level interruptions
 
 ## Disable `useTopLevelRegex` for Safety
 

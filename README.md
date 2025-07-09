@@ -14,9 +14,10 @@
 Setting up Biome configuration often involves:
 
 1. **Development interruptions** - Error-level rules that stop you mid-coding
-2. **Manual rule setup** - Tedious configuration of hundreds of linting rules  
-3. **Team inconsistency** - Different developers end up with different configs
-4. **Maintenance burden** - Configs become outdated and need constant updates
+2. **Visual confusion** - Both compiler errors and linter errors show as red, making it hard to distinguish between actual code issues and style violations
+3. **Manual rule setup** - Tedious configuration of hundreds of linting rules  
+4. **Team inconsistency** - Different developers end up with different configs
+5. **Maintenance burden** - Configs become outdated and need constant updates
 
 ### Before (Manual Configuration)
 
@@ -30,8 +31,8 @@ Setting up Biome configuration often involves:
         "useExhaustiveDependencies": "error"
       },
       "suspicious": {
-        "noConsole": "error",             // Stops development flow
-        "noDebugger": "error"
+        "noConsole": "error",             // Shows as red (same as compiler errors!)
+        "noDebugger": "error"             // Confuses actual bugs with style issues
       }
       // ... hundreds more rules to configure manually
     }
@@ -44,7 +45,7 @@ Setting up Biome configuration often involves:
 }
 ```
 
-**Result:** Development constantly interrupted by linting errors, inconsistent team configurations.
+**Result:** Development constantly interrupted by linting errors, visual confusion between compiler errors and style violations (both red!), inconsistent team configurations.
 
 ### After (With @suin/biome.json)
 
@@ -54,17 +55,18 @@ Setting up Biome configuration often involves:
 }
 ```
 
-**Result:** Comprehensive, warning-level rules that guide without blocking development.
+**Result:** Comprehensive, warning-level rules that guide without blocking development, with clear visual distinction between actual errors (red) and style suggestions (yellow warnings).
 
 ## The Solution
 
 This package provides a **pre-compiled Biome configuration** that eliminates common development workflow issues:
 
 1. **Uninterrupted coding flow** - All rules set to "warn" so you can keep coding
-2. **Zero setup required** - Just extend the config and start developing
-3. **Proven rule foundation** - Built on Ultracite's battle-tested preset
-4. **Automatic maintenance** - Stays current with Biome and Ultracite updates
-5. **Team consistency** - Everyone gets the same rules out of the box
+2. **Clear visual distinction** - Compiler errors show as red, linter suggestions show as yellow warnings
+3. **Zero setup required** - Just extend the config and start developing
+4. **Proven rule foundation** - Built on Ultracite's battle-tested preset
+5. **Automatic maintenance** - Stays current with Biome and Ultracite updates
+6. **Team consistency** - Everyone gets the same rules out of the box
 
 The solution is **non-invasive** and works with your existing Biome setup without breaking changes.
 
