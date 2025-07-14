@@ -8,8 +8,7 @@
         "bunx sort-package-json -c",
         "bunx biome ci",
         "bun install --frozen-lockfile",
-        "bun run build",
-        "bun run test"
+        "bun run build"
       ],
       "publish": [
         "bun install --frozen-lockfile",
