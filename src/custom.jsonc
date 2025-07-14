@@ -7,6 +7,9 @@
   },
   "linter": {
     "rules": {
+      "complexity": {
+        "useLiteralKeys": "off"
+      },
       "correctness": {
         "noUndeclaredVariables": "off"
       },

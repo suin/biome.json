@@ -15,6 +15,7 @@ All linting rules are set to "warn" level instead of "error" level.
 **The confusion problem**: When both compiler errors and linter errors show as red in your IDE, it becomes difficult to prioritize what needs immediate attention. A missing semicolon (style issue) appears just as urgent as an undefined variable (actual bug). This creates cognitive overhead and slows down development.
 
 **The solution**: By using warning-level rules, developers can:
+
 - Immediately identify and fix actual compilation errors (red)
 - Address style improvements when convenient (yellow warnings)
 - Maintain code quality guidance without blocking productivity
@@ -29,17 +30,18 @@ The `useTopLevelRegex` rule is disabled by default.
 **Safety over micro-optimization**: The safest default practice is to create a new `RegExp` instance for each use, guaranteeing a stateless object and eliminating potential bugs. Modern JavaScript engines (like V8) cache compiled regex bytecode, making new `RegExp` object creation extremely cheap. The decision to reuse a `RegExp` instance should be a conscious optimization made after profiling, not a default behavior.
 
 **Examples of problematic code**:
+
 ```javascript
 // Problematic - shared global RegExp can cause bugs
 const GLOBAL_REGEX = /pattern/g;
 
 function processItems(items) {
-  return items.filter(item => GLOBAL_REGEX.test(item)); // lastIndex state affects results
+  return items.filter((item) => GLOBAL_REGEX.test(item)); // lastIndex state affects results
 }
 
 // Safe - new RegExp instance each time
 function processItems(items) {
-  return items.filter(item => /pattern/g.test(item));
+  return items.filter((item) => /pattern/g.test(item));
 }
 ```
 
@@ -50,6 +52,7 @@ The `useConsistentArrayType` rule is configured to enforce generic array syntax.
 **Reasoning**: This provides consistency with other generic types (`Promise<T>`, `Map<K, V>`, `Set<T>`). The generic syntax is more explicit and readable, especially for complex nested types, easier to scan and understand in type definitions, and aligns with modern TypeScript best practices.
 
 **Examples**:
+
 ```typescript
 // Preferred
 const numbers: Array<number> = [1, 2, 3];
@@ -76,4 +79,50 @@ JavaScript/TypeScript strings are enforced to use double quotes (`"`).
 
 The `noUndeclaredVariables` rule is turned off in the Biome configuration.
 
-**Reasoning**: TypeScript compiler already handles undeclared variable detection more accurately. This avoids false positives in TypeScript environments, reduces redundant error reporting, and allows TypeScript to be the source of truth for variable declarations. 
+**Reasoning**: TypeScript compiler already handles undeclared variable detection more accurately. This avoids false positives in TypeScript environments, reduces redundant error reporting, and allows TypeScript to be the source of truth for variable declarations.
+
+## Disable `useLiteralKeys` to Avoid Conflicts with TypeScript
+
+The `useLiteralKeys` rule is disabled to prevent conflicts with TypeScript's `noPropertyAccessFromIndexSignature`.
+
+**The Story**: When you enable TypeScript's `noPropertyAccessFromIndexSignature` flag (a recommended strict mode option), it requires bracket notation (`obj["foo"]`) for accessing properties on objects with index signatures. This makes it explicit when you're accessing dynamic properties versus guaranteed ones.
+
+Meanwhile, Biome's `useLiteralKeys` rule wants to do the opposite—it converts `obj["foo"]` to `obj.foo` for cleaner code. This creates an irreconcilable conflict.
+
+**Why Can't Biome Fix This?** You might wonder: doesn't Biome v2.0+ have type inference? Yes, it does! But `useLiteralKeys` is intentionally kept as a fast, syntactic-only rule. Making it type-aware would require:
+
+- Understanding TypeScript's index signatures
+- Slowing down the rule significantly
+- Breaking existing workflows that expect instant feedback
+
+The Biome team has acknowledged this incompatibility and closed it as "not planned"—it's a deliberate choice to keep the rule simple and fast (see [biomejs/biome#463](https://github.com/biomejs/biome/issues/463)).
+
+**The Technical Context**:
+
+- `noPropertyAccessFromIndexSignature` enforces consistent syntax (not type safety)
+- `noUncheckedIndexedAccess` is the flag that actually adds `| undefined` for type safety
+- Biome's type inference is opt-in and focused on complex rules like `noFloatingPromises`
+- Simple rules like `useLiteralKeys` stay fast by remaining syntactic
+
+**Our Decision**: We prioritize TypeScript's consistency requirements over Biome's style preferences. The bracket notation makes your code's intent clearer, distinguishing between "this property definitely exists" and "this property might exist."
+
+**Example**:
+
+```typescript
+type Config = { [key: string]: string };
+const config: Config = {
+  /* ... */
+};
+
+// TypeScript requires this (clear intent)
+const value = config["apiKey"];
+
+// Biome wants this (would cause TS error)
+const value = config.apiKey; // Error: TS4111
+```
+
+**Learn More**:
+
+- [`noPropertyAccessFromIndexSignature`](https://www.typescriptlang.org/tsconfig#noPropertyAccessFromIndexSignature) - TypeScript docs
+- [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig#noUncheckedIndexedAccess) - TypeScript docs
+- [`useLiteralKeys`](https://biomejs.dev/linter/rules/use-literal-keys/) - Biome docs
