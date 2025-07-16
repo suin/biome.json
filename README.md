@@ -173,6 +173,74 @@ To avoid duplicate warnings between Biome and TypeScript compiler, you can exten
 
 This disables TypeScript's `noUnusedLocals` and `noUnusedParameters` since Biome's `noUnusedVariables` rule handles unused variable detection.
 
+## CI/CD Configuration
+
+### ⚠️ Important: Handling Warnings in CI
+
+Since this configuration uses **warning-level rules** for better developer experience, Biome will exit with code 0 (success) even when warnings are found. This is intentional for local development but can be problematic in CI/CD environments where you want to ensure code quality.
+
+**The Problem**: In CI, developers might miss warnings because the build appears successful:
+
+```yaml
+# ❌ This will pass even with warnings
+- run: npx biome ci
+```
+
+**The Solution**: Use the `--error-on-warnings` flag in your CI configuration:
+
+```yaml
+# ✅ This will fail if any warnings are found
+- run: npx biome ci --error-on-warnings
+```
+
+### Example CI Configurations
+
+#### GitHub Actions
+
+```yaml
+name: CI
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npx biome ci --error-on-warnings
+```
+
+#### GitLab CI
+
+```yaml
+lint:
+  image: node:20
+  script:
+    - npx biome ci --error-on-warnings
+```
+
+#### Other CI Commands
+
+```bash
+# Format check with error on warnings
+npx biome format --error-on-warnings
+
+# Lint check with error on warnings  
+npx biome lint --error-on-warnings
+
+# Both format and lint with error on warnings
+npx biome check --error-on-warnings
+```
+
+### Local vs CI Behavior
+
+- **Local Development**: Warnings don't block your workflow
+- **CI/CD Pipeline**: Warnings are treated as errors to maintain code quality
+
+This approach gives you the best of both worlds: uninterrupted development locally while ensuring high code quality in your repository.
+
 ## Opinionated Choices
 
 This configuration makes several opinionated choices to promote consistency and best practices. These opinions are documented in [OPINIONS.md](./OPINIONS.md):
