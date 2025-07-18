@@ -405,7 +405,7 @@
 
     "typical": ["typical@4.0.0", "", {}, "sha512-VAH4IvQ7BDFYglMd7BPRDfLgxZZX4O4TFcRDA6EN5X7erNJJq+McIEp8np9aVtxrCJ6qx4GTYVfOWNjcqwZgRw=="],
 
-    "ultracite": ["ultracite@5.0.36", "", { "dependencies": { "@clack/prompts": "^0.11.0", "commander": "^14.0.0", "deepmerge": "^4.3.1", "jsonc-parser": "^3.3.1", "vitest": "^3.2.4" }, "bin": { "ultracite": "dist/index.js" } }, "sha512-BpRoP+aCyGeLyIy50xB/K15vntOaKblgoSh9v9AfXGZGqKA12aG2FDLIaXD+ywRJRytVffgstd8y2Yq9/mScMw=="],
+    "ultracite": ["ultracite@5.0.39", "", { "dependencies": { "@clack/prompts": "^0.11.0", "commander": "^14.0.0", "deepmerge": "^4.3.1", "jsonc-parser": "^3.3.1", "vitest": "^3.2.4" }, "bin": { "ultracite": "dist/index.js" } }, "sha512-yyrftv3h7aIGEWYVfRGWn8fBB6vbCjmTK57LQr48uZsB1r/xs1vEHlwdZe4m7xfH5Bmch6xf7q9aylh0vVtkrQ=="],
 
     "undici-types": ["undici-types@7.8.0", "", {}, "sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw=="],
 
