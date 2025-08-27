@@ -36,12 +36,12 @@
     "update-biome-types": "quicktype ./node_modules/@biomejs/biome/configuration_schema.json -s schema -o node_modules/@biomejs/biome/index.d.ts -t Biome --just-types --prefer-unions"
   },
   "devDependencies": {
-    "@biomejs/biome": "*",
-    "@tsconfig/bun": "*",
-    "@tsconfig/strictest": "*",
-    "@types/bun": "*",
+    "@biomejs/biome": "^2.2.0",
+    "@tsconfig/bun": "^1.0.8",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/bun": "^1.2.21",
     "deepmerge-ts": "^7.1.5",
     "quicktype": "^23.2.6",
-    "ultracite": "^5.0.29"
+    "ultracite": "^5.2.5"
   }
 }
