@@ -42,6 +42,6 @@
     "@types/bun": "^1.2.21",
     "deepmerge-ts": "^7.1.5",
     "quicktype": "^23.2.6",
-    "ultracite": "^5.2.5"
+    "ultracite": "^6.2.0"
   }
 }
