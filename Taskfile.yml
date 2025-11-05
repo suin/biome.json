@@ -1,0 +1,33 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - echo "{{.GREETING}}"
+    silent: true
+  ci:
+    cmds:
+      - bun install --frozen-lockfile
+      - bunx sort-package-json -c
+      - task: build
+      - bunx biome ci
+      - bun test
+  publish:
+    cmds:
+      - bun install --frozen-lockfile
+      - task: build
+      - npm publish --provenance --access public
+  build:
+    cmds:
+      - bun run scripts/compile.ts
+  test:
+    cmds:
+      - bun test
+  update-biome-types:
+    cmds:
+      - bunx quicktype ./node_modules/@biomejs/biome/configuration_schema.json -s schema -o node_modules/@biomejs/biome/index.d.ts -t Biome --just-types --prefer-unions

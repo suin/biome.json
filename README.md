@@ -15,7 +15,7 @@ Setting up Biome configuration often involves:
 
 1. **Development interruptions** - Error-level rules that stop you mid-coding
 2. **Visual confusion** - Both compiler errors and linter errors show as red, making it hard to distinguish between actual code issues and style violations
-3. **Manual rule setup** - Tedious configuration of hundreds of linting rules  
+3. **Manual rule setup** - Tedious configuration of hundreds of linting rules
 4. **Team inconsistency** - Different developers end up with different configs
 5. **Maintenance burden** - Configs become outdated and need constant updates
 
@@ -27,18 +27,18 @@ Setting up Biome configuration often involves:
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUndeclaredVariables": "error",  // Blocks development
+        "noUndeclaredVariables": "error", // Blocks development
         "useExhaustiveDependencies": "error"
       },
       "suspicious": {
-        "noConsole": "error",             // Shows as red (same as compiler errors!)
-        "noDebugger": "error"             // Confuses actual bugs with style issues
+        "noConsole": "error", // Shows as red (same as compiler errors!)
+        "noDebugger": "error" // Confuses actual bugs with style issues
       }
       // ... hundreds more rules to configure manually
     }
   },
   "formatter": {
-    "quoteStyle": "single",              // Inconsistent choices
+    "quoteStyle": "single", // Inconsistent choices
     "semicolons": "asNeeded"
   }
   // No type safety, easy to break
@@ -87,19 +87,101 @@ pnpm add -D @suin/biome.json
 
 ```json
 {
-  "extends": ["@suin/biome.json"]
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/<framework>"]
 }
 ```
 
-That's it! Your project now uses the opinionated configuration with **warning-level rules** for a better development experience.
+Pick your framework from the list below (for example, Next.js uses both `react` and `next`). That's it! Your project now uses the opinionated configuration with **warning-level rules** for a better development experience.
 
 ## Usage Examples
 
-### Basic Configuration
+### Framework-specific Configuration (copy-paste)
+
+Use one of the following presets based on your framework.
+
+#### Next.js
 
 ```json
 {
-  "extends": ["@suin/biome.json"]
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "@suin/biome.json",
+    "@suin/biome.json/react",
+    "@suin/biome.json/next"
+  ]
+}
+```
+
+#### React (Vite, CRA, etc.)
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/react"]
+}
+```
+
+#### Vue
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/vue"]
+}
+```
+
+#### Svelte
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/svelte"]
+}
+```
+
+#### Solid
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/solid"]
+}
+```
+
+#### Qwik
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/qwik"]
+}
+```
+
+#### Angular
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/angular"]
+}
+```
+
+#### Remix
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/remix"]
+}
+```
+
+#### Astro
+
+```json
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/astro"]
 }
 ```
 
@@ -109,14 +191,15 @@ You can override any rules in your own `biome.json`:
 
 ```json
 {
-  "extends": ["@suin/biome.json"],
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/<framework>"],
   "formatter": {
     "lineWidth": 120
   },
   "linter": {
     "rules": {
       "suspicious": {
-        "noConsole": "error"  // Make console warnings into errors
+        "noConsole": "error" // Make console warnings into errors
       }
     }
   }
@@ -127,7 +210,8 @@ You can override any rules in your own `biome.json`:
 
 ```json
 {
-  "extends": ["@suin/biome.json"],
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/<framework>"],
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
@@ -144,11 +228,12 @@ You can override any rules in your own `biome.json`:
 
 ```json
 {
-  "extends": ["@suin/biome.json"],
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["@suin/biome.json", "@suin/biome.json/<framework>"],
   "linter": {
     "rules": {
       "correctness": {
-        "noUndeclaredVariables": "warn"  // Re-enable for TypeScript
+        "noUndeclaredVariables": "warn" // Re-enable for TypeScript
       }
     }
   }
@@ -208,7 +293,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
       - run: npx biome ci --error-on-warnings
 ```
 
@@ -227,7 +312,7 @@ lint:
 # Format check with error on warnings
 npx biome format --error-on-warnings
 
-# Lint check with error on warnings  
+# Lint check with error on warnings
 npx biome lint --error-on-warnings
 
 # Both format and lint with error on warnings
@@ -251,25 +336,30 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ### Development Setup
 
+> Local development for this repository assumes a Devbox environment. Install [Devbox](https://www.jetify.com/devbox) and enter the environment with `devbox shell` before running the commands below. Bun and Task are provisioned automatically inside the shell.
+
 ```bash
 # Clone the repository
 git clone https://github.com/suin/biome.json.git
 cd biome.json
 
+# Enter Devbox shell (provisions Bun and Task)
+devbox shell
+
 # Install dependencies
 bun install
 
 # Update Biome types (if needed)
-bun run update-biome-types
+task update-biome-types
 
 # Build the configuration
-bun run build
+task build
 ```
 
 ### Making Changes
 
 1. **Edit `src/custom.jsonc`** with your changes
-2. **Run `bun run build`** to generate the compiled config
+2. **Run `task build`** to generate the compiled config
 3. **Test the changes** in a sample project
 4. **Submit a PR** with your modifications
 
@@ -277,16 +367,16 @@ bun run build
 
 ```bash
 # Build the configuration
-bun run build
+task build
 
 # Update Biome TypeScript definitions
-bun run update-biome-types
+task update-biome-types
 
 # Update dependencies and rebuild
-bun update ultracite && bun run build
+bun update ultracite && task build
 
 # Verify build output
-cat dist/biome.json | head -20
+cat dist/core.json | head -20
 ```
 
 ### Testing Changes
@@ -294,7 +384,7 @@ cat dist/biome.json | head -20
 ```bash
 # Test in a sample project
 mkdir test-project && cd test-project
-echo '{"extends": ["../dist/biome.json"]}' > biome.json
+echo '{"extends": ["../dist/core.json"]}' > biome.json
 echo 'console.log("test")' > test.js
 bunx biome check test.js  # Should show warnings, not errors
 ```
@@ -304,7 +394,7 @@ bunx biome check test.js  # Should show warnings, not errors
 If you find a bug, please create an issue with:
 
 - A minimal reproduction case
-- Your environment details (Bun/Node.js version, package versions)  
+- Your environment details (Bun/Node.js version, package versions)
 - Expected vs actual behavior
 - Output of `bunx biome rage` command
 
@@ -314,7 +404,7 @@ MIT © [suin](https://github.com/suin)
 
 ## License Acknowledgment
 
-This package builds upon [Ultracite](https://github.com/haydenbleasel/ultracite) (MIT License) 
+This package builds upon [Ultracite](https://github.com/haydenbleasel/ultracite) (MIT License)
 as its foundation, extending it.
 
 ---

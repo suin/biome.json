@@ -21,27 +21,25 @@
   "author": "suin",
   "type": "module",
   "exports": {
-    ".": "./dist/biome.json",
-    "./tsconfig": "./tsconfig-base.json"
+    ".": "./dist/core.json",
+    "./tsconfig": "./tsconfig-base.json",
+    "./*": "./dist/*.json"
   },
   "main": "dist/biome.json",
   "files": [
-    "dist/biome.json",
+    "dist/*.json",
     "tsconfig-base.json"
   ],
   "scripts": {
-    "build": "bun run scripts/compile.ts",
-    "install": "bun run update-biome-types",
-    "test": "bun test",
-    "update-biome-types": "quicktype ./node_modules/@biomejs/biome/configuration_schema.json -s schema -o node_modules/@biomejs/biome/index.d.ts -t Biome --just-types --prefer-unions"
+    "install": "task update-biome-types"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.0",
-    "@tsconfig/bun": "^1.0.8",
-    "@tsconfig/strictest": "^2.0.5",
-    "@types/bun": "^1.2.21",
+    "@biomejs/biome": "2.3.4",
+    "@tsconfig/bun": "^1.0.9",
+    "@tsconfig/strictest": "^2.0.7",
+    "@types/bun": "^1.3.1",
     "deepmerge-ts": "^7.1.5",
     "quicktype": "^23.2.6",
-    "ultracite": "^5.2.5"
+    "ultracite": "^6.3.0"
   }
 }
