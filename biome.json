@@ -2,13 +2,6 @@
   "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["./dist/core.json"],
   "files": {
-    "includes": [
-      "**",
-      "!.devbox",
-      "!dist",
-      "!scripts/biome.d.ts",
-      "!src",
-      "!tests/fixture"
-    ]
+    "includes": ["!dist", "!scripts/biome.d.ts", "!src", "!tests/fixture"]
   }
 }
