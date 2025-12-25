@@ -30,9 +30,6 @@
     "dist/*.json",
     "tsconfig-base.json"
   ],
-  "scripts": {
-    "install": "task update-biome-types"
-  },
   "devDependencies": {
     "@biomejs/biome": "2.3.4",
     "@tsconfig/bun": "^1.0.9",
