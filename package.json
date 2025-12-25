@@ -1,6 +1,6 @@
 {
   "name": "@suin/biome.json",
-  "version": "0.0.0-beta.6",
+  "version": "0.0.0-beta.7",
   "description": "Opinionated Biome configuration extending ultracite with additional rules",
   "keywords": [
     "biome",
