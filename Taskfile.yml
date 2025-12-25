@@ -21,7 +21,7 @@ tasks:
     cmds:
       - bun install --frozen-lockfile
       - task: build
-      - npm publish --provenance --access public
+      - npm publish --access public
   build:
     cmds:
       - bun run scripts/compile.ts
